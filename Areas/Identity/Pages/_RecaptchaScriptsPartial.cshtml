@@ -1,0 +1,16 @@
+﻿@using Microsoft.Extensions.Options
+@using reCaptcha_v3_app.Settings
+@inject IOptions<RecaptchaSettings> _recaptchaSettings
+@{
+	var siteKey = _recaptchaSettings.Value.SiteKey;
+}
+<script src="https://www.google.com/recaptcha/api.js?render=@siteKey"></script>
+ <script>
+			grecaptcha.ready(function () {
+					grecaptcha.execute('@siteKey', { action: 'submit' }).then(function (token) {
+						// Add your logic to submit to your backend server here
+						 $("#recaptcha-token").val(token);
+				});
+			});
+
+</script>
